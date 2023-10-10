@@ -21,7 +21,6 @@ import credentials from './config.mjs';
 import utilMiddleware from './src/lib/middleware/NinjaCodersUtil.mjs';
 import { weatherMiddleware } from './src/lib/middleware/weather.mjs';
 import flashMiddleware from './src/lib/middleware/flash.mjs';
-import productsMiddleware from './src/lib/middleware/products.mjs';
 import requiresDeposit from './src/lib/middleware/productRequiresDeposit.mjs';
 
 
@@ -65,7 +64,6 @@ app.use(expressSession({
 app.use(utilMiddleware);
 app.use(weatherMiddleware);
 app.use(flashMiddleware);
-app.use(productsMiddleware);
 app.use(requiresDeposit);
 
 // Logging Middleware
