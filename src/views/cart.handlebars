@@ -1,0 +1,61 @@
+<div class="d-flex justify-content-center">
+   <h1>Your Cart</h1>
+</div>
+
+{{#each cartWarnings}}
+<div class="alert alert-warning">
+    {{.}}
+</div>
+{{/each}}
+
+{{#ifgt cartSize 0}}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Product</th>
+      <th scope="col">Qty</th>
+      <th scope="col">Subtotal</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each cart.items}}
+    <tr>
+      <th scope="row">{{product.name}}</th>
+      <td>
+        <form method="post" action="/change-cart-item-qty" class="row row-cols-lg-auto g-3 align-items-center">
+          <input type="hidden" value="{{product.id}}" name="productId">
+          <div  class="col-12">
+            <input class="form-control form-control-sm" type="number" min="0" value="{{qty}}" name="qty">
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-sm btn-secondary"><i class="bi-arrow-clockwise"></i></button>
+          </div>
+        </form>
+      </td>
+      <td>&euro;{{subtotal}}</td>
+      <td>
+        <form method="post" action="/delete-from-cart">
+          <input type="hidden" value="{{product.id}}" name="productId">
+          <button type="submit" class="btn btn-sm btn-danger"><i class="bi-trash3-fill"></i></button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<div class="card">
+  <div class="card-header">
+    Your total
+  </div>
+  <div class="card-body">
+    <h3>&euro;{{cart.total}}</h3>
+    <form method="post" action="/checkout">
+      <input type="email" name="email" class="form-control" required>
+      <button type="submit" class="btn btn-primary"><i class="bi-cash-stack"></i> Checkout</button>
+    </form>
+  </div>
+</div>
+{{else}}
+Your shopping cart is empty.
+{{/ifgt}}
